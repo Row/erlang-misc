@@ -1,7 +1,7 @@
 % Solution to 99 problems as seen on 
 % http://www.ic.unicamp.br/~meidanis/courses/mc336/2006s2/funcional/L-99_Ninety-Nine_Lisp_Problems.html
 %
-% Problem 1 - 10
+% Problem 1 - 11
 %
 -module(last).
 -export(
@@ -23,28 +23,28 @@
 % Problem 1
 last([Element]) 
     -> Element;
-last([_|Rest]) 
-    -> last(Rest).
+last([_|Tail]) 
+    -> last(Tail).
 
 % Problem 2
 last_but([A,B]) ->
     [A,B];
-last_but([_|Rest]) -> 
-    last_but(Rest).
+last_but([_|Tail]) -> 
+    last_but(Tail).
 
 % Problem 3
 element_at(List, I) -> 
     element_at(List, I, 1).
 element_at([Element | _], I, N) when N == I ->
     Element;
-element_at([_ | Rest], I, N) ->
-    element_at(Rest, I, N + 1).
+element_at([_ | Tail], I, N) ->
+    element_at(Tail, I, N + 1).
 
 % Problem 4
-length_of([]) -> 
+length_of([]) ->
     0;
-length_of([_|Rest]) -> 
-    1 + length_of(Rest).
+length_of([_|Tail]) -> 
+    1 + length_of(Tail).
 
 % Problem 5
 reverse(L) -> 
@@ -57,8 +57,8 @@ reverse([],R) ->
 % Problem 6
 is_palindrome(L1) ->
     is_palindrome(L1, reverse(L1)).
-is_palindrome([H1|R1], [H2|R2]) when H1 == H2 ->
-    is_palindrome(R1, R2);
+is_palindrome([H1|T1], [H2|T2]) when H1 == H2 ->
+    is_palindrome(T1, T2);
 is_palindrome([], []) -> 
     true;
 is_palindrome(_, _) ->
@@ -67,10 +67,10 @@ is_palindrome(_, _) ->
 % Problem 7
 flatten([]) -> 
     [];
-flatten([[HI|RI]|R]) ->
-    [HI | flatten(RI)] ++ flatten(R);    
-flatten([H|R]) ->
-    [H|flatten(R)].
+flatten([[HI|TI]|T]) ->
+    [HI | flatten(TI)] ++ flatten(T);    
+flatten([H|T]) ->
+    [H|flatten(T)].
     
 % Problem 8
 compress([]) ->
