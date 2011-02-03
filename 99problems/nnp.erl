@@ -3,22 +3,8 @@
 %
 % Problem 1 - 11
 %
--module(last).
--export(
-    [
-        last/1,
-        last_but/1,
-        element_at/2,
-        length_of/1,
-        reverse/1,
-        is_palindrome/1,
-        compress/1,
-        flatten/1,
-        pack/1,
-        encode/1,
-        encode_mod/1
-    ]
-).
+-module(nnp).
+-compile(export_all).
 
 % Problem 1
 last([Element]) 
@@ -116,3 +102,31 @@ encode_mod([[E|TI]|T]) ->
 encode_mod(L) ->
     encode_mod(pack(L)).
 
+% Problem 12
+decode([]) ->
+    []; 
+decode([{N,E}|T]) ->
+    repeat(E,N) ++ decode(T);
+decode([H|T]) ->
+    [H|decode(T)].
+    
+repeat(_, 0) -> 
+    [];
+repeat(Char, N) ->
+    [Char|repeat(Char, N-1)].
+    
+% Problem 13
+encode_direct([H|T]) ->
+    encode_direct(T, H, 1).    
+encode_direct([H|T], H, N) ->
+    encode_direct(T, H, N+1);
+encode_direct([H|T], P, 1) ->
+    [P,encode_direct(T, H, 1)];
+encode_direct([H|T], P, N) ->
+    [{N, P}|encode_direct(T, H, 1)];
+encode_direct([], P, 1) ->
+    [P];
+encode_direct([],P,N) ->
+    [{N, P}].
+    
+    
