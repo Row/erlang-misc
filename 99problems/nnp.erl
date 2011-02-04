@@ -129,4 +129,29 @@ encode_direct([], P, 1) ->
 encode_direct([],P,N) ->
     [{N, P}].
     
-    
+% Problem 14
+dupli([]) ->
+    [];
+dupli([H|T]) ->
+    [H, H | dupli(T)].
+
+% Problem 15
+replicate([], _) ->
+    [];
+replicate([H|T], N) ->
+    replicate(H, N) ++ replicate(T, N);
+replicate(_, 0) ->
+    [];
+replicate(E, N) ->
+    [E | replicate(E, N - 1)].
+
+% Problem 16
+drop(L, N) ->
+    drop(L, N, N - 1).
+drop([_|T], N, 0) ->
+    drop(T, N);
+drop([H|T], N, I) ->
+    [H | drop(T, N, I - 1)];
+drop([], _, _) ->
+    [].
+
