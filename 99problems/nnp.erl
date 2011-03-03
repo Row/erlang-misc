@@ -1,7 +1,7 @@
 % Solution to 99 problems as seen on 
 % http://www.ic.unicamp.br/~meidanis/courses/mc336/2006s2/funcional/L-99_Ninety-Nine_Lisp_Problems.html
 %
-% Problem 1 - 11
+% Avoiding predefined functions.
 %
 -module(nnp).
 -compile(export_all).
@@ -154,4 +154,67 @@ drop([H|T], N, I) ->
     [H | drop(T, N, I - 1)];
 drop([], _, _) ->
     [].
+    
+% Problem 17
+split(L, N) ->
+    {split_n(L, N), split_tail(L, N)}.
+split_n(_, 0) ->
+    [];
+split_n([H|T], N) ->
+    [H|split_n(T, N-1)].
+split_tail(L, 0) ->
+    L;
+split_tail([_|T], N) ->
+    split_tail(T, N-1). 
+    
+% Problem 18
+slice(_,0,0) ->
+    [];
+slice([H|T],0,M) ->
+    [H|slice(T, 0, M - 1)];
+slice([_|T],N,M) ->    
+    slice(T, N - 1,M - 1).
 
+% Problem 19
+% Use mod instead
+rotate(L, 0) ->
+    L;
+rotate(L, N) when N > 0 ->
+    {L1, L2} = split(L, N),
+    L2 ++ L1;
+rotate(L, N) ->
+     {L1, L2} = split(L, length_of(L) + N),
+     L2 ++ L1.
+     
+% Problem 20
+remove_at([_|T], 1) ->
+    T;
+remove_at([H|T], N) ->
+    [H|remove_at(T, N - 1)].
+
+% Problem 21
+insert_at(Val, [H|T], 1) ->
+    [Val,H|T];
+insert_at(Val,[H|T], N) ->
+    [H|insert_at(Val, T, N - 1)].
+ 
+% Problem 22
+range(I, J) when I == J ->
+    [I];
+range(I, J) when I > J ->
+    [I|range(I - 1, J)];
+range(I, J) ->
+    [I|range(I + 1, J)].
+
+% Problem 23
+% N-random elements
+
+% Problem 31
+is_prime(N) ->
+    is_prime(N, N - 1).
+is_prime(_, 1) ->
+    true;
+is_prime(N, K) ->
+    N rem K /= 0 andalso is_prime(N, K - 1).   
+
+    
