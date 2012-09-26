@@ -22,6 +22,7 @@ num_sums(Sum, [H|T]) ->
 % true if S contains matching paranthesis
 par_match(S) ->
     par_match(S, 0).
+
 par_match(_, Sum) when Sum < 0 ->
     false;
 par_match([], Sum) ->
@@ -34,6 +35,7 @@ par_match([_|T], Sum) ->
     par_match(T, Sum).
 
 % Pascal
+% Find pascal value of row and col.
 % pascal(0,2)=1, pascal(1,2)=2 and pascal(1,3)=3.
 pascal(0,_) ->
     1;
@@ -44,6 +46,7 @@ pascal(C, R) ->
 
 
 % Postman
+% Longest path of unordered letters...
 postman(L) ->    
     postman(L,0,0).
 
@@ -55,10 +58,3 @@ postman([Hd|Tl],Max,Ack) when Hd < Max ->
     postman(Tl,Max,Ack);
 postman([Hd|Tl],Max,Ack) ->
     max(postman(Tl,Hd,Ack+1),postman(Tl,Max,Ack)).
-
-
-
-max(A,B) when A > B->
-    A;
-max(_A,B) ->
-    B.
